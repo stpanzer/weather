@@ -1,0 +1,21 @@
+<div class = "container">
+  <div class="navbar">
+    <div class = "navbar-inner">
+      <a class = "brand" href="#"> Weather </a>
+    </div> 
+  </div>
+  <div class = "row">
+    <% @days.each do |day| %>
+      <div class="span2">
+         <%= day %>  
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+  window.user_ip = '<%= j request.remote_ip %>';
+  window.mock_ip = '17.172.224.47'
+  window.ruby_url = '<%= j request.protocol + request.host_with_port %>';
+  window.site_url = '<%= j request.protocol + request.host %>';
+<% end %>
