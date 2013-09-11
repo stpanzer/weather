@@ -15,7 +15,11 @@ class WeatherAjaxController < ApplicationController
         if diff < 10
           render json: city
         else
-          json = get_weather params[:name], params[:province], params[:country]
+          begin
+            json = get_weather params[:name], params[:province], params[:country]
+          rescue OpenURI::HTTPError => error
+            render json: { :error => "#{error}" }
+          end
           city.weather = json
           city.save
           render json: city
@@ -23,7 +27,13 @@ class WeatherAjaxController < ApplicationController
       else
         #City is new. create a db entry and fill in the data
         newCity = CityWeather.new cityName: params[:name], province: params[:province], country: params[:country]
-        newCity.weather = get_weather params[:name], params[:province], params[:country]
+        begin
+          json = get_weather params[:name], params[:province], params[:country]
+        rescue OpenURI::HTTPError => error
+          render json: { :error => "#{error}" }
+          return
+        end
+        newCity.weather = json
         newCity.save
         render json: newCity
       end
