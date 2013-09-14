@@ -2,6 +2,10 @@
   <div class="navbar">
     <div class = "navbar-inner">
       <a class = "brand" href="#"> Weather </a>
+      <form id="search" method="get" action="/weather"> 
+        <input type="text" placeholder="Search for your city or zip" id = "searchbox" name="search">
+        <button type="submit" class="btn">Submit</button>
+      </form>
     </div> 
   </div>
   <div class = "row">
@@ -18,7 +22,7 @@
 
 <%= javascript_tag do %>
   window.user_ip = '<%= j request.remote_ip %>';
-  window.mock_ip = '130.123.24.47'
+  window.mock_ip = '15.123.24.47'
   window.ruby_url = '<%= j request.protocol + request.host_with_port %>';
   window.site_url = '<%= j request.protocol + request.host %>';
 <% end %>
