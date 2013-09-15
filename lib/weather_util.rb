@@ -21,10 +21,14 @@ module WeatherUtil
       return newCity
     end
   end
-
-  def geocode_zip(zip)
+  def geocode_ip(ip)
+    ip_url = "http://api.ipinfodb.com/v3/ip-city/?key=8e7a04c4f57900bae6713dbb17866506ebf86f000e983a606d6e8cc7dcf8898d&ip=#{ip}&format=json"
+    connection = open(ip_url)
+    return JSON.parse(connection.read) 
+  end
+  def geocode_addr(addr)
     goog_url = "http://maps.googleapis.com/maps/api/geocode/json?"
-    address = "address=#{zip}&"
+    address = "address=#{addr}&"
     sensor = "sensor=false"
     connection = open(goog_url+address+sensor)
     return JSON.parse(connection.read)

@@ -4,6 +4,7 @@ require 'json'
 class WeatherController < ApplicationController
   include ::WeatherUtil
   def index
+    @errors = Array.new
     if params.has_key?(:search)
       if !(params[:search].nil?) or !(params[:search].empty?)
         regex = /\A[0-9]*\Z/
@@ -31,13 +32,26 @@ class WeatherController < ApplicationController
           begin
             @weather = get_weather @city, @state, @country
           rescue OpenUri::HTTPError => error
-            @error = error
+            @errors << error
           end
           
-        #else
-          #Query is a city/state/country combo of some sort  
-        #end
       end
+    else
+      #geolocate based on ip
+      usr_ip = request.remote_ip
+      mock_ip = '12.34.120.0'
+      json = geocode_ip(mock_ip)
+      if(json["statusCode"] == "OK")
+
+        @city = json["cityName"].titlecase
+        @state = json["regionName"].titlecase
+        @country = json["countryName"].titlecase
+        @weather = get_weather @city, @state, @country
+      else
+        @errors << "Could not locate you. Search to find weather"
+      end
+      logger.info json
+
     end
     date = Time.new
     @days = Array.new
