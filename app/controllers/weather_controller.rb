@@ -8,13 +8,12 @@ class WeatherController < ApplicationController
       if !(params[:search].nil?) or !(params[:search].empty?)
         regex = /\A[0-9]*\Z/
         #Check if param is a number, if so, geolocate based on post code
-        if params[:search].match regex
+        #if params[:search].match regex
           zip = params[:search]
           geores = Geocoding.gets(params[:search])
 
           if(geores["status"] == "OK")
             addr_components = geores["results"][0]["address_components"]
-            logger.info "addr type = "
             addr_components.each do |val|
               if val["types"].include? "locality"
                 @city = val["long_name"]
@@ -27,15 +26,18 @@ class WeatherController < ApplicationController
               end
             end
           end
+          
+          
           begin
-            json = get_weather @city, @state, @country
+            debugger
+            @weather = get_weather @city, @state, @country
           rescue OpenUri::HTTPError => error
             @error = error
           end
-          render json: json
-        else
+          
+        #else
           #Query is a city/state/country combo of some sort  
-        end
+        #end
       end
     end
     date = Time.new
