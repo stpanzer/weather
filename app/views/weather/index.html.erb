@@ -12,6 +12,7 @@
   </div>
   <div class = "row">
     <%if @weather%>
+
       <% for i in 0..@weather['weather']['list'].length-1 %>
         <% curday = @weather['weather']['list'][i] %>
         <div class= "span2">
@@ -21,7 +22,9 @@
           <div class="wimg"><img src="<%=request.protocol + request.host%>/weather_img/<%=curday["weather"][0]["icon"]%>.svg"> </div>
         </div>
       <%end%>
+
     <%else%>
+
       <% @days.each do |day| %>
         <div class="span2">
            <span class = "centerme"><%= day %></span>
@@ -30,6 +33,7 @@
            <div class = "wimg"></div>
          </div>
        <% end %>
+
      <%end%>
   </div>
 </div>
