@@ -12,10 +12,14 @@ module WeatherUtil
     base_url = "http://api.openweathermap.org/data/2.5/forecast/daily?q="
     url = base_url + "#{name}&cnt=7&units=imperial".tr(' ', '_')
     connection = open(url)
-    newCity = CityWeather.new cityName: name, province: prov, country: country
-    newCity.weather = JSON.parse(connection.read)
-    newCity.save
-    return newCity    
+    cityJson = JSON.parse(connection.read)
+    unless cityJson["cod"] == "404"
+      newCity = CityWeather.new cityName: name, province: prov, country: country
+      newCity.weather = cityJson
+      newCity.save
+
+      return newCity
+    end
   end
 
   def geocode_zip(zip)
