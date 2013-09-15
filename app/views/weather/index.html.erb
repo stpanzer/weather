@@ -40,6 +40,7 @@
 
 <%= javascript_tag do %>
   <% if(@weather) %>
+  <%#Request was a search. The preload variable indicates that we shouldn't try and use the user's ip to get the weather %>
     window.preload = true
   <% end %>
   window.user_ip = '<%= j request.remote_ip %>';
