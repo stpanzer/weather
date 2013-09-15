@@ -29,7 +29,6 @@ class WeatherController < ApplicationController
           
           
           begin
-            debugger
             @weather = get_weather @city, @state, @country
           rescue OpenUri::HTTPError => error
             @error = error

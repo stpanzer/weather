@@ -28,5 +28,4 @@ $(document).ready ->
       )
     )
   
-test = (data) ->
-  console.log(data)
+
