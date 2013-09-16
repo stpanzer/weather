@@ -1,8 +1,10 @@
 <div class = "container">
   <div class="navbar">
     <div class = "navbar-inner">
-      <a class = "brand" href="#"> Weather
-         for <%= if @city then @city+", " end%><%= if @state then @state+", " end %><%= if @country then @country end%>
+      <a class = "brand" href="<%= request.protocol + request.host_with_port%>/weather"> Weather
+         <%if @errors.length == 0 %>
+           for <%= if @city then @city+", " end%><%= if @area then @area+", " end %><%= if @state then @state+", " end %><%= if @country then @country end%>
+         <% end %>
          </a>
       <form id="search" method="get" action="/weather"> 
         <input type="text" placeholder="Search for your city or zip" id = "searchbox" name="search">
@@ -10,13 +12,13 @@
       </form>
     </div> 
   </div>
-  <div class = "row">
+  <div class = "row-fluid">
     <%if @weather%>
 
       <% for i in 0..@weather['weather']['list'].length-1 %>
         <% curday = @weather['weather']['list'][i] %>
         <div class= "span2">
-          <span class="centerme"> <%= @days[i] %></span>
+          <span class="centerme"> <%= @dates[i] %></span>
           <div class="temp"><%=curday["temp"]["day"].to_i%>&deg;F </div>
           <div class ="desc"><%=curday["weather"][0]["main"]%> </div>
           <div class="wimg"><img src="<%=request.protocol + request.host%>/weather_img/<%=curday["weather"][0]["icon"]%>.svg"> </div>
@@ -24,27 +26,15 @@
       <%end%>
 
     <%else%>
-
-      <% @days.each do |day| %>
-        <div class="span2">
-           <span class = "centerme"><%= day %></span>
-           <div class = "temp"></div>
-           <div class = "desc"></div>
-           <div class = "wimg"></div>
-         </div>
-       <% end %>
-
-     <%end%>
+      <%if @errors.length > 0 %>
+        <%@errors.each do |err|%>
+          <div class="span2">
+            <p class="text-error"><%= err %> </p>
+          </div>
+        <%end%>
+      <%end%>
+    <%end%>
   </div>
 </div>
 
-<%= javascript_tag do %>
-  <% if(@weather) %>
-  <%#Request was a search. The preload variable indicates that we shouldn't try and use the user's ip to get the weather %>
-    window.preload = true
-  <% end %>
-  window.user_ip = '<%= j request.remote_ip %>';
-  window.mock_ip = '15.123.24.47'
-  window.ruby_url = '<%= j request.protocol + request.host_with_port %>';
-  window.site_url = '<%= j request.protocol + request.host %>';
-<% end %>
+

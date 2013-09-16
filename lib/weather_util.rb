@@ -1,8 +1,8 @@
 module WeatherUtil
   #returns json for city if it exists, otherwise creates a new city
-  def get_weather(name, prov, country, *rest)
-    if CityWeather.exists? cityName: name, province: prov, country: country
-      city = CityWeather.find_by cityName: name, province: prov, country: country
+  def get_weather(rest)
+    if CityWeather.exists? rest
+      city = CityWeather.find_by rest
       t = DateTime.now
       if((t - city.updated_at.to_datetime)*24*60) < 10
         return city
@@ -10,11 +10,23 @@ module WeatherUtil
 
     end
     base_url = "http://api.openweathermap.org/data/2.5/forecast/daily?q="
-    url = base_url + "#{name}&cnt=7&units=imperial".tr(' ', '_')
+    query = ""
+    if(rest[:cityName])
+      query << rest[:cityName]+","
+    elsif rest[:area]
+      query << rest[:area]+","
+    end
+    subhash = rest.select{|key, value| ![:area, :cityName].include? key}
+    subhash.each_value do |key|
+      if key
+        query << key+","
+      end
+    end
+    url = base_url + "#{query}&cnt=7&units=imperial".tr(' ', '_')
     connection = open(url)
     cityJson = JSON.parse(connection.read)
     unless cityJson["cod"] == "404"
-      newCity = CityWeather.new cityName: name, province: prov, country: country
+      newCity = CityWeather.new rest
       newCity.weather = cityJson
       newCity.save
 

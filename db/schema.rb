@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904233124) do
+ActiveRecord::Schema.define(version: 20130915220522) do
 
   create_table "city_weathers", force: true do |t|
     t.string   "cityName"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20130904233124) do
     t.datetime "updated_at"
     t.string   "province"
     t.string   "country"
+    t.string   "area"
   end
 
 end
