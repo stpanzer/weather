@@ -1,12 +1,11 @@
 // Place all the styles related to the weather controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.span2{
-  min-height:80px;
+.whitebg{
   border-radius: 20px;
   background-color:white;
-  padding:10px;
   margin-bottom:10px;
+  padding:10px;
   text-align:center;
 }
 .wimg img{
@@ -17,11 +16,3 @@ body{
   background-color:grey;
 }
 
-#search{
-  float:right;
-}
-
-#searchbox{
-  margin-top:8px;
-  margin-bottom:0px;
-}

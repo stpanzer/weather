@@ -29,7 +29,7 @@ module WeatherUtil
       newCity = CityWeather.new rest
       newCity.weather = cityJson
       newCity.save
-
+      logger.info cityJson
       return newCity
     end
   end

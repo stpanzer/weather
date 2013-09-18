@@ -9,7 +9,6 @@ class WeatherController < ApplicationController
       if !(params[:search].nil?) or !(params[:search].empty?)
         zip = params[:search]
         geores = Geocoding.gets(params[:search])
-        debugger
         if(geores["status"] == "OK")
           addr_components = geores["results"][0]["address_components"]
           addr_components.each do |val|
@@ -53,14 +52,13 @@ class WeatherController < ApplicationController
       end
 
     end
+   
     #set up days and dates for the view
     date = Time.new
-    @days = Array.new
     @dates = Array.new
     i = 0 
     wday = date.wday
     while i < 7 
-      @days[i] = Date::DAYNAMES[wday]
       @dates[i] = date + ((60 * 60 * 24) * i)
       if wday == 6 then
         wday = 0
