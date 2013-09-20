@@ -31,7 +31,18 @@ class WeatherController < ApplicationController
           rescue OpenURI::HTTPError => error
             @errors << error
           end
-
+          if @weather.nil?
+            #openweathermap doesn't like very specific locations, so lets try just city/country
+            hash = {cityName:@city, country: @country}
+            begin
+              @weather = get_weather hash
+            rescue OpenURI::HTTPError => error
+              @errors << error
+            end
+            if @weather.nil?
+              @errors << "I had trouble finding weather for you"
+            end
+          end
         else
             @errors << "Search returned no results"
         end               
@@ -52,7 +63,10 @@ class WeatherController < ApplicationController
       end
 
     end
-   
+    #set up background image based on today's weather, set attribution
+    if !(@weather.nil?) then
+      @background = get_bg_attribution @weather['weather']['list'][0]['weather'][0]["main"].downcase
+    end
     #set up days and dates for the view
     date = Time.new
     @dates = Array.new

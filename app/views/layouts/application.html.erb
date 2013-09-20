@@ -8,8 +8,22 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id = "wrap">
+    <div id = "main">
+      <%= yield %>
+    </div>
+  </div>
+  <div id="footer" class="col-md-8 col-md-offset-2">
+    <div class="footcontent">
+      <small>
+        Design and layout &copy; 2013 Stephen Panzer (<a href="http://www.panzercode.com/">panzercode</a>)<br>
+        Weather information courtesy of <a href="http://api.openweathermap.org/">Open Weather Map</a>, 
+        Geocoding by <a href="ipinfodb.com">IpInfoDb</a>, Icons from <a href="http://www.alessioatzeni.com/meteocons/">Alessio Atzeni</a><br>
+        <% if @background %>
+          Background image &copy; <a href="<%= @background[:attr_url]%>"> <%= @background[:attr]%> </a>
+        <% end %>
+      </small>
+    </div>
+  </div>
 </body>
 </html>

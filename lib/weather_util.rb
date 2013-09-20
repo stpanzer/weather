@@ -25,12 +25,24 @@ module WeatherUtil
     url = base_url + "#{query}&cnt=7&units=imperial".tr(' ', '_')
     connection = open(url)
     cityJson = JSON.parse(connection.read)
-    unless cityJson["cod"] == "404"
+    if ! (cityJson["cod"] == "404")
       newCity = CityWeather.new rest
       newCity.weather = cityJson
       newCity.save
       logger.info cityJson
       return newCity
+    end
+  end
+  def get_bg_attribution(status)
+    url = "background/"+status+".jpg"
+    if status == "rain"
+      return {url: url, attr: "pennacook", attr_url: "http://www.flickr.com/photos/pennacook/"}
+    elsif status == "clouds"
+      return {url: url, attr: "Esparta Palma", attr_url: "http://www.flickr.com/photos/esparta"}
+    elsif status == "clear"
+      return {url: url, attr: "Elliott Brown", attr_url: "http://www.flickr.com/photos/ell-r-brown"}
+    else
+      return nil
     end
   end
   def geocode_ip(ip)
