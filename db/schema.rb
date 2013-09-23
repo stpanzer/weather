@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915220522) do
+ActiveRecord::Schema.define(version: 20130923225305) do
 
   create_table "city_weathers", force: true do |t|
     t.string   "cityName"
