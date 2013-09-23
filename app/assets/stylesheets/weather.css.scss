@@ -1,13 +1,42 @@
 // Place all the styles related to the weather controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can uise Sass (SCSS) here: http://sass-lang.com/
+$transparent_white: rgba(255,255,255, .8);
+//cleafix
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+//custom css
 .whitebg{
   border-radius: 20px;
-  background-color:white;
+  background-color:$transparent_white;
   text-align:center;
+  overflow:auto;
   padding:10px;
 }
 
+.navbar-brand{
+  padding-right:70px;
+}
+.navbar-toggle{
+  position:absolute;
+  right:0;
+  top:0;
+}
+.leftpane, .rightpane{
+  float:left;
+  width:50%;
+}
+
+.desc, .wimg{
+  margin:0 auto;
+}
 .wimg img{
   height:50px;
   width:50px;
@@ -15,8 +44,10 @@
 .padme{
   padding-bottom:10px;
 }
+
+//stickfooter
 .footcontent{
-  background:white;
+  background-color:$transparent_white;
   padding:10px;
   height:100%;
   text-align:center;
@@ -28,7 +59,7 @@
   border-top-right-radius: 20px;
 
 }
-//Sticky footer css
+
 body{
   background-color:grey;
   height: 100%;
@@ -56,4 +87,10 @@ height:100%;
 float:left;
 width:0;
 margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+@media only screen and (max-width: 480px){
+  #footer{
+    height: auto;
+  }
 }

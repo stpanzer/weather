@@ -4,7 +4,7 @@ module WeatherUtil
     if CityWeather.exists? rest
       city = CityWeather.find_by rest
       t = DateTime.now
-      if((t - city.updated_at.to_datetime)*24*60) < 10
+      if((t - city.updated_at.to_datetime)*24*60).to_i < 10
         return city
       end
 
@@ -22,15 +22,18 @@ module WeatherUtil
         query << key+","
       end
     end
-    url = base_url + "#{query}&cnt=7&units=imperial".tr(' ', '_')
+    url = base_url + "#{CGI.escape query}&cnt=7&units=imperial".tr(' ', '_')
     connection = open(url)
     cityJson = JSON.parse(connection.read)
-    if ! (cityJson["cod"] == "404")
+    if ! (cityJson["cod"] == "404") and !city
       newCity = CityWeather.new rest
       newCity.weather = cityJson
       newCity.save
-      logger.info cityJson
       return newCity
+    elsif city
+      city.weather = cityJson
+      city.save
+      return city
     end
   end
   def get_bg_attribution(status)

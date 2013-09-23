@@ -1,7 +1,8 @@
 <div class = "container">
   <div class="navbar navbar-default">
     <div class = "navbar-header">
-      <a class = "navbar-brand" href="<%= request.protocol + request.host_with_port%>/weather"> Weather</a>
+      <a class = "navbar-brand" href="<%= request.protocol + request.host_with_port%>/weather"> Weather<%= if @city then ": "+@city+", " elsif @area then ": "+@area+", " end %><%= if @state then @state+", " end %><%= if @country then @country end%>
+</a>
 
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -20,31 +21,27 @@
       </form>
     </div>
   </div>
-  <div class = "row">
-         <div class="col-md-8 col-md-offset-2 padme">
-         <%if @errors.length == 0 %>
-             <div class ="whitebg">
-               <h3><%= if @city then @city+", " elsif @area then @area+", " end %><%= if @state then @state+", " end %><%= if @country then @country end%></h3>
-             </div>
-         <% end %>
-         </div>
-  </div>
+  
   <div class = "row">
     <%if @weather%>
 
       <% for i in 0..@weather['weather']['list'].length-1 %>
         <% curday = @weather['weather']['list'][i] %>
-        <% if i == 6 %>
+        <% if (i) % 3  == 0 %>
           </div>
           <div class = "row">
         <% end %>
-        <div class= "col-md-2 col-lg-2 padme">
+        <div class= "col-sm-4 col-lg-4 padme">
           <div class = "whitebg">
-            <span class="centerme"> <%= @dates[i] %></span>
-            <div class="temp">High: <%=curday["temp"]["day"].to_i%>&deg;F </div>
-            <div class="temp">Low: <%=curday["temp"]["min"].to_i%>&deg;F </div>
-            <div class ="desc"><%=curday["weather"][0]["description"].titlecase%> </div>
-            <div class="wimg"><img src="<%=request.protocol + request.host%>/weather_img/<%=curday["weather"][0]["icon"]%>.svg"> </div>
+            <div class="leftpane">
+              <span class="centerme"> <%= @dates[i] %></span>
+              <div class="temp">High: <%=curday["temp"]["day"].to_i%>&deg;F </div>
+              <div class="temp">Low: <%=curday["temp"]["min"].to_i%>&deg;F </div>
+            </div>
+            <div class="rightpane">
+              <div class ="desc"><%=curday["weather"][0]["description"].titlecase%> </div>
+              <div class="wimg"><img src="<%=request.protocol + request.host%>/weather_img/<%=curday["weather"][0]["icon"]%>.svg"> </div>
+            </div>
           </div>
         </div>
       <%end%>

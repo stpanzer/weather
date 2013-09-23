@@ -40,7 +40,7 @@ class WeatherController < ApplicationController
               @errors << error
             end
             if @weather.nil?
-              @errors << "I had trouble finding weather for you"
+              @errors << "I had trouble finding weather for you. Try a different search."
             end
           end
         else
