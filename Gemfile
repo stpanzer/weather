@@ -47,4 +47,4 @@ end
 gem "httparty"
 gem "debugger"
 
-gem "rails_server_static_assets"
+gem "rails_serve_static_assets"
