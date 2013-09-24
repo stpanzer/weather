@@ -46,3 +46,5 @@ end
 # gem 'debugger', group: [:development, :test]
 gem "httparty"
 gem "debugger"
+
+gem "rails_server_static_assets"
