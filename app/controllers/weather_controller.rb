@@ -50,8 +50,7 @@ class WeatherController < ApplicationController
     else
       #geolocate based on ip
       usr_ip = request.remote_ip
-      mock_ip = '12.34.10.80'
-      json = geocode_ip(mock_ip)
+      json = geocode_ip(usr_ip)
       if(json["statusCode"] == "OK")
 
         @city = json["cityName"].titlecase
