@@ -1,6 +1,6 @@
 ShortProj::Application.routes.draw do
-  get "weather/index"
-  root "weather/index"
+  get "weather" => "weather#index"
+  root "weather#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -55,5 +55,4 @@ ShortProj::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  resources :weather
 end
