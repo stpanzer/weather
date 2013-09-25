@@ -1,6 +1,6 @@
 ShortProj::Application.routes.draw do
-  get "weather_ajax/get"
   get "weather/index"
+  root "weather/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
