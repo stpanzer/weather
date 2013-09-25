@@ -18,7 +18,7 @@ $(document).ready(function(){
             if (type == "keydown") {
                 var orig_listener = listener;
                 listener = function(event) {
-                    var suggestion_selected = $(".pac-item-refresh.pac-selected").length > 0;
+                    var suggestion_selected = $(".pac-item-selected").length > 0;
                     if (event.which == 13 && !suggestion_selected) {
                         var simulated_downarrow = $.Event("keydown", {
                             keyCode: 40,

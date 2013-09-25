@@ -49,3 +49,5 @@ gem "debugger"
 
 #Forces rails to actually serve static assets on Heroku
 gem "rails_serve_static_assets"
+
+gem "jquery-turbolinks"
