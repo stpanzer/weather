@@ -1,0 +1,13 @@
+<div class = "row">
+  <%if @errors.length > 0 %> 
+    <%@errors.each do |err|%> 
+      <div class="col-md-8 col-md-offset-2"> 
+        <div class="whitebg">
+          <p class="text-danger"><%= err %> </p> 
+        </div>
+      </div> 
+    <%end%> 
+  <%end%>
+
+
+</div>

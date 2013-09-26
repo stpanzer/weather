@@ -45,6 +45,9 @@ $transparent_white: rgba(255,255,255, .8);
   padding-bottom:10px;
 }
 
+#bg{
+  min-height:100%;
+}
 //stickfooter
 .footcontent{
   background-color:$transparent_white;
@@ -60,14 +63,10 @@ $transparent_white: rgba(255,255,255, .8);
 
 }
 
-body{
-  background-color:grey;
-  height: 100%;
+body, html{
+  min-height: 100%;
 }
 
-html{
-  height: 100%;
-}
 #wrap {min-height: 100%;}
 
 .container {overflow:auto;

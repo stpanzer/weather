@@ -1,27 +1,4 @@
-<div class = "container">
-  <div class="navbar navbar-default">
-    <div class = "navbar-header">
-      <a class = "navbar-brand" href="<%= request.protocol + request.host_with_port%>/weather"> Weather<%= if @city then ": "+@city+", " elsif @area then ": "+@area+", " end %><%= if @state then @state+", " end %><%= if @country then @country end%>
-</a>
 
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
- 
-    </div>
-    <div class="collapse navbar-collapse navbar-ex1-collapse"> 
-      <form id="search" class="navbar-form navbar-right form-inline" method="get" action="/weather">
-        <div class="form-group"> 
-          <input type="text" placeholder="Search for your city or zip" class="form-control" id = "searchbox" name="search">
-        </div>
-        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-      </form>
-    </div>
-  </div>
-  
   <div class = "row">
     <%if @weather%>
 
@@ -46,17 +23,9 @@
         </div>
       <%end%>
 
-    <%else%>
-      <%if @errors.length > 0 %>
-        <%@errors.each do |err|%>
-          <div class="col-md-2">
-            <p class="text-error"><%= err %> </p>
-          </div>
-        <%end%>
-      <%end%>
+
     <%end%>
   </div>
-</div>
 <% if @weather and @background%>
   <%= javascript_tag do %>
     window.curweather = "<%= j @background[:url] %>"

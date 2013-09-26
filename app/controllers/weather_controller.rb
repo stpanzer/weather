@@ -39,9 +39,7 @@ class WeatherController < ApplicationController
             rescue OpenURI::HTTPError => error
               @errors << error
             end
-            if @weather.nil?
-              @errors << "I had trouble finding weather for you. Try a different search."
-            end
+
           end
         else
             @errors << "Search returned no results"
@@ -52,15 +50,18 @@ class WeatherController < ApplicationController
       usr_ip = request.remote_ip
       json = geocode_ip(usr_ip)
       if(json["statusCode"] == "OK")
-
-        @city = json["cityName"].titlecase
-        @state = json["regionName"].titlecase
-        @country = json["countryName"].titlecase
+        @city = json["cityName"].titlecase unless json["cityName"] == "-"
+        @state = json["regionName"].titlecase unless json["regionName"] == "-"
+        @country = json["countryName"].titlecase unless json["countryName"] == "-"
         @weather = get_weather ({cityName: @city, province: @state, country: @country})
       else
         @errors << "Could not locate you. Search to find weather"
       end
 
+    end
+    if @weather.nil?
+      @errors << "I had trouble finding weather for you. Try a different search."
+      render "error"
     end
     #set up background image based on today's weather, set attribution
     if !(@weather.nil?) then

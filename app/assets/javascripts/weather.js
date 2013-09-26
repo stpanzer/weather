@@ -4,7 +4,20 @@
 
 
 $(document).ready(function(){
-  $('body').css('background', 'url('+window.curweather+') no-repeat center center fixed').css('background-size', 'cover');
+  if(window.curweather){
+    if(screen.width <480){
+      $('#bg').css('background', 'url('+window.curweather+'-mob.jpg)')
+        .css('background-size', 'cover')
+        .css('background-repeat', 'no-repeat')
+        .css('background-position', 'center center')
+        .css('background-attachment', 'fixed').css('background-size', '100% 100%');
+    }else{
+      $('#bg').css('background', 'url('+window.curweather+'.jpg) no-repeat center center fixed').css('background-size', 'cover').css('height', '100%');
+      $('#wrap').css('height', '100%');
+      $('body').css('height', '100%');
+      $('html').css('height', '100%');
+    }
+  }
 
   var pac_input = document.getElementById('searchbox');
 

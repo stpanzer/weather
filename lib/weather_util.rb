@@ -37,13 +37,15 @@ module WeatherUtil
     end
   end
   def get_bg_attribution(status)
-    url = "background/"+status+".jpg"
+    url = "background/"+status
     if status == "rain"
       return {url: url, attr: "pennacook", attr_url: "http://www.flickr.com/photos/pennacook/"}
     elsif status == "clouds"
       return {url: url, attr: "Esparta Palma", attr_url: "http://www.flickr.com/photos/esparta"}
     elsif status == "clear"
       return {url: url, attr: "Elliott Brown", attr_url: "http://www.flickr.com/photos/ell-r-brown"}
+    elsif status == "snow"
+      return {url: url, attr: "Lee Haywood", attr_url: "http://www.flickr.com/photos/leehaywood/"}
     else
       return nil
     end
