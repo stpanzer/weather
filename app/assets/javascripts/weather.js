@@ -2,23 +2,7 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 
-
 $(document).ready(function(){
-  if(window.curweather){
-    if(screen.width <480){
-      $('#bg').css('background', 'url('+window.curweather+'-mob.jpg)')
-        .css('background-size', 'cover')
-        .css('background-repeat', 'no-repeat')
-        .css('background-position', 'center center')
-        .css('background-attachment', 'fixed').css('background-size', '100% 100%');
-    }else{
-      $('#bg').css('background', 'url('+window.curweather+'.jpg) no-repeat center center fixed').css('background-size', 'cover').css('height', '100%');
-      $('#wrap').css('height', '100%');
-      $('body').css('height', '100%');
-      $('html').css('height', '100%');
-    }
-  }
-
   var pac_input = document.getElementById('searchbox');
 
     (function pacSelectFirst(input) {

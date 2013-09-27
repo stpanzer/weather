@@ -5,7 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="keywords" content="weather, simple, atmosphere, panzer, panzercode, Stephen Panzer">
   <meta name="description" content="Just the weather, nothing else">
-  
+  <% if @background and @weather %>
+    <style>
+      #bg{
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+      }
+    </style>
+    <style media="screen and (max-width:480px)">
+      #bg{
+        background-image: url("<%= @background[:url]%>-mob.jpg");
+      }
+    </style>
+    <style media="screen and (min-width:481px)">
+      #bg{
+        background-image: url("<%= @background[:url]%>.jpg");
+        height:100%;
+      }
+      #wrap, body, html{ height:100%; }
+      
+    </style>
+  <%end%>
   <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
